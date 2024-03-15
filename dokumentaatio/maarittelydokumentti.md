@@ -1,4 +1,4 @@
-# Määrittely dokumentti 
+# Määrittelydokumentti 
 
 #### Opinto-ohjelma:
 - Tietojenkäsittelytieteen kandidaatti
@@ -10,4 +10,6 @@
 
 #### Projektin aihe
 
-Päädyin aiheessani klassiseen kivi-sakset-paperi-peliin. Mielenkiintoinen aihe, jossa pääsee haastaamaan itseään ja oppimaan uutta. 
+Päädyin aiheessani klassiseen ristinolla peliin. Mielenkiintoinen aihe, jossa pääsee haastaamaan itseään ja oppimaan uutta.
+
+Ristinolla tulee olemaan 20x20 lauta. Algoritmina käytössä minimax
