@@ -1,4 +1,4 @@
-#Viikko 1
+# Viikko 1
 
 Tällä viikolla en oikeastaan tehnyt muuta kuin tutustuin aiheisiin, valitsin sellaisen ja loin reposition projektilleni. Tarkoitus oli aloittaa myös koodaaminen jo heti ensimmäisellä viikolla, mutta empä ehtinyt sittenkään.
 
