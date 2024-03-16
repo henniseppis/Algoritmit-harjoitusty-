@@ -28,6 +28,6 @@ Voitto selvitetään tarkastelemalla vain viimeiseen siirtoon liittyviä ruutuja
 
 #### Minimax-algoritmi alpha-beta-karsinnalla
 
-Minimax-algoritmia käytetään esimerkiksi pelien luonnissa minimoimaan häviö huonoimmassa mahdollisessa tilanteessa. Minimax-algoritmi pyrkii minimoimaan häviön joko itse voittamalla, tai tekemällä siiroon joka ei johda toisen pelaajan voittoon seuraavalla kierroksella.
+Minimax on päätöspuualgoritmi, jota käytetään esimerkiksi pelien luonnissa Minimax-algoritmi pyrkii minimoimaan häviön joko itse voittamalla, tai tekemällä siiroon joka ei johda toisen pelaajan voittoon seuraavalla kierroksella. Algoritmi arvioi pelin tilaa ja seuraavaa siirtoa pelin edetessä verraten sitä edellisiin siirtoihin.  Alpha-beta-karsinta tuodaan rinnalle tehostamaan minmax-algoritmia, jotta saadaan luotua paras siirto mahdollisimman vähällä työllä. Alpha ja beta saavat kuvaavat parhainta ja huonointa arvoa. Puuta läpikäytäessä min saa arvoksi alphan ja max betan.
 
   
