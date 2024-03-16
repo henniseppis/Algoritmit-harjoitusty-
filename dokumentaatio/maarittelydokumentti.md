@@ -20,6 +20,8 @@ Voitto selvitetään tarkastelemalla vain viimeiseen siirtoon liittyviä ruutuja
 
 Aikavaativuus on O(b^m), jossa b on mahdollisten siirtojen määrä ja m puun syvyys.
 
+Ydin on saada algoritmi tuottamaan mahdollisimman nopeasti paras mahdollinen siirto, mitä silloisessa pelitilanteessa voidaan tehdä. 
+
 #### Pelin kulku
 - Peliä voi pelata komentoriviltä
 - Käyttäjä pelaa tietokonetta vastaan. Toisella nappuloina ristit, toisella nollat.
