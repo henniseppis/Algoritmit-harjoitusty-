@@ -18,10 +18,12 @@ Tarkoituksena algoritmin avulla löytää viimeisimmän siirron perusteella, sii
 
 Voitto selvitetään tarkastelemalla vain viimeiseen siirtoon liittyviä ruutuja, viimesimmän siirron tehnyt julistetaan voittajaksi jos voiton ehdot täyttyvät.
 
+Aikavaativuus on O(b^m), jossa b on mahdollisten siirtojen määrä ja m puun syvyys.
+
 #### Pelin kulku
 - Peliä voi pelata komentoriviltä
-- Käyttäjä pelaa tietokonetta vastaan. Toisella nappulana ristit, toisella nollat.
-- Nappuloita laitetaan laudalle vuorotellen
+- Käyttäjä pelaa tietokonetta vastaan. Toisella nappuloina ristit, toisella nollat.
+- Nappuloita laitetaan laudalle vuorotellen, yksi kerrallaan
 - Se kumpi saa ensiksi 5 omaa nappulaa peräkkäin pelilaudalle, voittaa. (Pysty, vaaka tai diagonaali)
 - Pelissä tehdään siirtoja syöttämällä paikan koordinaatti johon oman nappulan haluaa (esim. B3, jolloin oma nappula laitetaan toisen rivin kolmannelle sarakkeelle)
 - Teen (ehkä) niin, että käyttäjä on aina risti ja tietokone nolla. Toki saatan myös tehdä niin että käyttäjä voi valita kumpi haluaa olla.
@@ -31,3 +33,6 @@ Voitto selvitetään tarkastelemalla vain viimeiseen siirtoon liittyviä ruutuja
 Minimax on päätöspuualgoritmi, jota käytetään esimerkiksi pelien luonnissa Minimax-algoritmi pyrkii minimoimaan häviön joko itse voittamalla, tai tekemällä siiroon joka ei johda toisen pelaajan voittoon seuraavalla kierroksella. Algoritmi arvioi pelin tilaa ja seuraavaa siirtoa pelin edetessä verraten sitä edellisiin siirtoihin.  Alpha-beta-karsinta tuodaan rinnalle tehostamaan minmax-algoritmia, jotta saadaan luotua paras siirto mahdollisimman vähällä työllä. Alpha ja beta saavat kuvaavat parhainta ja huonointa arvoa. Puuta läpikäytäessä min saa arvoksi alphan ja max betan.
 
   
+#### Lähteet
+https://en.wikipedia.org/wiki/Minimax#Minimax_algorithm_with_alternate_moves
+https://jyx.jyu.fi/bitstream/handle/123456789/58204/1/URN%3ANBN%3Afi%3Ajyu-201805292875.pdf
