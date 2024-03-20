@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "algoritmit-harjoitustyo"
+version = "0.1.0"
+description = ""
+authors = ["Henni Seppänen <104835482+henniseppis@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "algoritmit_harjoitustyo"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+coverage = "^7.4.4"
+invoke = "^2.2.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.1.1"
+pylint = "^3.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
