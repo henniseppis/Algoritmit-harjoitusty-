@@ -4,7 +4,9 @@ version = "0.1.0"
 description = ""
 authors = ["Henni Seppänen <104835482+henniseppis@users.noreply.github.com>"]
 readme = "README.md"
-packages = [{include = "algoritmit_harjoitustyo"}]
+
+
+
 
 [tool.poetry.dependencies]
 python = "^3.10"
