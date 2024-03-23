@@ -10,7 +10,7 @@
 #### Käynnistys:
 - Kloonaa repositorio
 - Asenna riippuvuudet  
-> Poetry install
+> poetry install
 
 - Käynnistä sovellus
 > invoke start
