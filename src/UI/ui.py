@@ -9,6 +9,8 @@ class UI:
         self.op = Opponent()
 
     def start(self):
+        """Starts the app and gives a menu for player"""
+
         while True:
             print("Tervetuloa pelaamaan ristinollaa\n")
             print("1. Aloita peli")
@@ -20,11 +22,14 @@ class UI:
                 break
 
     def create_board(self):
-            board = self.board.create_board()
-            self.print_board(board)
-            return board       
+        """Calls function in board.py to create frame of board of asked size """
+
+        board = self.board.create_board()
+        self.print_board(board)
+        return board       
     
     def start_game(self):
+        """ Starts the game. Loop jumps between player making next move and AI making next move. """
         board = self.create_board()
         while True:
         #    if symbol == "X" or symbol == "O":
@@ -38,6 +43,8 @@ class UI:
             self.print_board(board)
     
     def print_board(self, board):
+        """Prints the board to the command line"""
+
         alpha = "  " + "   ".join(string.ascii_uppercase[:self.size])
         print(alpha)
 
@@ -47,6 +54,7 @@ class UI:
             print(" " * 3 + "-" * (4 * len(board)))
     
     def choose_next_move(self):
+        """ Asks the next wanted move from the player. Divides it into right sections; column and row which are returned and imported to the create_move function which follows this function everytime."""
         while True:
             try:
                 position = input("Valitse seuraava siirtosi (esim. C5 or F15): ").strip().upper()
