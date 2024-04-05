@@ -1,0 +1,1 @@
+Tällä viikolla aloitin tekemällä voitontarkistuksen. Funktio voiton tarkistukseen ottaa parametrikseen viimeisimmän siirron speksit ja symbolin eli X tai O riippuen kumman vuoro edellisellä kierroksella on ollut. Voiton tarkistus tehdään jokaisen uuden siirron jälkeen. Tällä hetkellä vieläkin ihmispelaaja pelaa symbolilla X ja AI symbolilla O.
