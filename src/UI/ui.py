@@ -5,25 +5,20 @@ from logic.opponent import Opponent
 class UI:
     def __init__(self):
         self.board = Board(size=20)
-        self.size = 20
-        self.op = Opponent()
+        self.op = Opponent(self.board)
 
     def start(self):
         """Starts the app and gives a menu for player to choose from"""
-
         while True:
             print("Tervetuloa pelaamaan ristinollaa\n")
             print("1. Aloita peli")
-            
             choice = input("Valitse ylläolevista vaihtoehdoista: ")
-
             if choice == "1":
                 self.start_game()
                 break
 
     def create_board(self):
         """Calls function in board.py to create frame of the board of asked size """
-
         board = self.board.create_board()
         self.print_board(board)
         return board
@@ -31,7 +26,6 @@ class UI:
     def start_game(self):
         """ Starts the game. Loop jumps between player making next move and AI making next move. 
         After every move there is a check for possible win depending on the last move """
-
         board = self.create_board()
         while True:
         #    tee niin että pelaaja voi valita kumpi on
@@ -40,12 +34,10 @@ class UI:
             row, column = self.choose_next_move(board)
             board = self.board.next_move(symbol_gamer, row, column)     
             self.print_board(board)
-            print(self.board.minmax(board, row, column, symbol_gamer))
-            #if self.board.check_win(board, row, column, symbol_gamer):
-            #    self.game_won(symbol_gamer)
-            #    break
-            #minmax = self.board.minmax(self, row, column)
-            ai_row, ai_col = self.op.create_move(board)
+            if self.board.check_win(board, row, column, symbol_gamer):
+                self.game_won(symbol_gamer)
+                break
+            ai_row, ai_col = self.op.ai_create_move(board, row, column, max_depth=2)
             board = self.board.next_move(symbol_ai, ai_row, ai_col) 
             self.print_board(board)
             if self.board.check_win(board, ai_row, ai_col, symbol_ai):
@@ -54,8 +46,7 @@ class UI:
 
     def print_board(self, board):
         """Prints the board to command line"""
-
-        alpha = "  " + "   ".join(string.ascii_uppercase[:self.size])
+        alpha = "  " + "   ".join(string.ascii_uppercase[:self.board.board_size])
         print(alpha)
 
         for i, row in enumerate(board):
@@ -82,10 +73,11 @@ class UI:
     
     def game_won(self, symbol):
         """ Announce the winner after the game """
-
         if symbol == "X":
+            print("\n")
             print("Peli päättyi. Onnea voitit pelin!")
         elif symbol == "O":
+            print("\n")
             print("Peli päättyi. AI vei voiton tällä kertaa")
 
             

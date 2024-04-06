@@ -16,23 +16,20 @@ class Board():
 
     def check_draw(self, board):
         return all(cell != ' ' for row in board for cell in row)
-        
     def check_win(self, board, last_move_row, last_move_col, symbol):
         """ 
-        We use directions multiplied from 1 to 5 to investigate if the last move has created a winning line. 
-        According to the last move it checks every direction (horizontally, vertically and diagonally) for possible win. 
-         
+        We use directions multiplied from 1 to 5 (5 because you need 5 same symbols following each other to win) to investigate if the last move has created a winning line. 
+        It checks every direction (horizontally, vertically and diagonally) for possible win. 
+
         Parameters:
         board = board including all the previous moves
         last_move_row = row coordinate of the last move
         last_move_col = column coordinate of the last move
         symbol = X or O depending who had the previous turn. If the win is detected the one who plays with this symbol is announced to be the winner.
-        
+
         Returns:
-        either True if win or False if no win
-         
+        either True if win or False if no win        
         """
-        
         directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
         for dir_row, dir_col in directions:
             count = 1
@@ -59,26 +56,6 @@ class Board():
 
         return False
     
-    def minmax(self, board, last_move_row, last_move_col,symbol):
-        if self.check_win(board, last_move_row, last_move_col,symbol):
-            return 1
-        else:
-            return 0
-
-        directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
-
-        for dir_row, dir_col in directions:
-            for i in range(1,3):
-                check_row = last_move_row + dir_row * i
-                check_col = last_move_col + dir_col * i
-
-                if (check_row < 0 or check_row >= self.board_size or check_col < 0 or check_col >= self.board_size  or
-                          board[check_row ][check_col] != " "):
-                    pass
-
-                else:
-                    board[check_row][check_col] = symbol
-                    evaluate_move = self.minmax(board, False)
 
 
         
