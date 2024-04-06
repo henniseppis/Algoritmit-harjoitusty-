@@ -46,6 +46,7 @@ class UI:
 
     def print_board(self, board):
         """Prints the board to command line"""
+
         alpha = "  " + "   ".join(string.ascii_uppercase[:self.board.board_size])
         print(alpha)
 
@@ -55,6 +56,7 @@ class UI:
             print(" " * 3 + "-" * (4 * len(board)))
     
     def choose_next_move(self, board):
+        
         """ Asks the next wanted move from the player. Divides it into right sections; column and row which are returned and imported to the create_move function which follows this function everytime."""
         while True:
             try:

@@ -18,14 +18,13 @@
 #            print(" " * 3 + "-" * (4 * len(board)))
 #
 #
-#class Board(unittest.TestCase):
+#class TestBoard(unittest.TestCase):
 #    def setUp(self):
 #        self.board = BoardStubb()
-#        self.board_functions = Board()
+#        self.board_functions = Board(size=20)
 #        
 #    def test_next_move(self):
 #        board = self.board.create_board_test()
-#        self.board_functions.next_move(self, )
-#        board[row][column] = symbol
-#        self.assertEqual(len(board), 20)
-    
+#        self.board_functions.next_move("X", 0, 6)
+#        self.assertEqual(board[0][6], "X")
+#    

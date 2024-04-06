@@ -15,7 +15,9 @@ class Board():
         return self.board
 
     def check_draw(self, board):
+        """ Checks if none of the cells are free if yes game ends with draw """
         return all(cell != ' ' for row in board for cell in row)
+
     def check_win(self, board, last_move_row, last_move_col, symbol):
         """ 
         We use directions multiplied from 1 to 5 (5 because you need 5 same symbols following each other to win) to investigate if the last move has created a winning line. 
