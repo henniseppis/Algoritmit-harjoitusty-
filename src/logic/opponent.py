@@ -8,6 +8,7 @@ class Opponent():
         self.board = board
 
     def ai_create_move(self, board, last_move_row, last_move_col, max_depth):
+        """Chooses the best move to make in that turn. Returns the coordinates of the best move as tuple"""
         coordinates = self.find_nearest_free_cells(board, last_move_row, last_move_col)
         best_eval = -float('inf')
         best_move = None
