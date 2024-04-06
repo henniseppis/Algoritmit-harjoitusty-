@@ -14,6 +14,6 @@ Ensi viikolla pyrin saamaan algoritmin toimimaan viisaammin, jottei ihmispelaaja
 
 ##### Kysymyksiä
 - Aiheen määrittelyssä sanotaan, että edelliset siirrot pitäisi säilöä jossain ja lähimpiä pitäisi priorisoida (niitä jotka ovat nyt ainoat tutkittavat minulla, eikä algoritmi niistäkään tee ehkä parhaimpia valintoja) niin miten tämä on järkevin totetuttaa? Olisko esim. sanakirja niin, että key olisi esimerkiksi tietyn ruudun koordinaatti ja value sen siirron hyvyys ja sieltä valitaan ruutu parhaimmalla hyvyydellä. Kannattaako minun kuitenkin pitää tuo lista viereisistä ruuduista vielä osana koodia vai koetko ,että se saattaa käydä turhaksi kun parannan algoa? Ja miten tuo hyvyys lähtökohtaisesti siis mitataan tai millä mittarilla? 1 on tietenkin voitto ja -1 häviö eli onko ne kuinka hyvä jokin siirto on niin jotain väliltä -1 ja 1 eli desimaalilukuja?
-
+  
 ##### Työaika
 Käytin tällä viikolla työhön varmaan n. 15-20h
