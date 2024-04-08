@@ -2,6 +2,8 @@
 #### Dokumentit
 [Määrittelydokumentti](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/maarittelydokumentti.md)
 
+![workflow_badge](https://github.com/henniseppis/algoritmit-harjoitustyo/actions/workflows/main.yml/badge.svg)
+
 #### Viikkoraportit
 [Viikko1](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko1.md)  
 [Viikko2](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko2.md)  
