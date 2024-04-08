@@ -6,7 +6,7 @@ from UI.ui import UI
 class TestBoard(unittest.TestCase):
     def setUp(self):
         self.board = Board(size=20)
-        self.ui = UI()
+        self.ui =  UI()
         
     def test_next_move(self):
         board = self.board.create_board()
