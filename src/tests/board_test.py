@@ -1,5 +1,4 @@
 import unittest
-import string 
 from board.board import Board
 from UI.ui import UI
 
