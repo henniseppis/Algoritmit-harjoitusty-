@@ -9,6 +9,7 @@ class UI:
 
     def start(self):
         """Starts the app and gives a menu for player to choose from"""
+        
         while True:
             print("Tervetuloa pelaamaan ristinollaa\n")
             print("1. Aloita peli")
@@ -19,18 +20,19 @@ class UI:
 
     def create_board(self):
         """Calls function in board.py to create frame of the board of asked size """
+
         board = self.board.create_board()
         self.print_board(board)
         return board
     
     def start_game(self):
-        """ Starts the game. Loop jumps between player making next move and AI making next move. 
-        After every move there is a check for possible win depending on the last move """
+        """ Starts the game. Loop jumps between player making the move and AI making the move. 
+        After every move there is a check for possible win.
+        """
+        symbol_gamer = "X"
+        symbol_ai = "O"
         board = self.create_board()
         while True:
-        #    tee niin että pelaaja voi valita kumpi on
-            symbol_gamer = "X"
-            symbol_ai = "O"
             row, column = self.choose_next_move(board)
             board = self.board.next_move(symbol_gamer, row, column)     
             self.print_board(board)
@@ -57,7 +59,11 @@ class UI:
     
     def choose_next_move(self, board):
         
-        """ Asks the next wanted move from the player. Divides it into right sections; column and row which are returned and imported to the create_move function which follows this function everytime."""
+        """ Asks the next wanted move from the player. Divides it into right sections; 
+        column and row which are returned and imported to the create_move function 
+        which is run everytime after this function.
+        """
+        
         while True:
             try:
                 position = input("Valitse seuraava siirtosi (esim. C5 or F15): ").strip().upper()
@@ -75,6 +81,7 @@ class UI:
     
     def game_won(self, symbol):
         """ Announce the winner after the game """
+
         if symbol == "X":
             print("\n")
             print("Peli päättyi. Onnea voitit pelin!")

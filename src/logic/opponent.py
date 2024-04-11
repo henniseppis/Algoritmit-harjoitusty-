@@ -1,10 +1,5 @@
-import random
-import string
-
-from board.board import Board
-
 class Opponent():
-    def __init__(self,board):
+    def __init__(self, board):
         self.board = board
 
     def ai_create_move(self, board, last_move_row, last_move_col, max_depth):
@@ -15,7 +10,7 @@ class Opponent():
 
         for row, col in coordinates:
             board[row][col] = "O"
-            evaluate = self.minmax(board, 0, max_depth, row, col, False)
+            evaluate = self.minmax(board, 0, max_depth, row, col, False, -float("inf"), float("inf"))
             board[row][col] = " "
             if evaluate > best_eval:
                 best_eval = evaluate
@@ -41,7 +36,7 @@ class Opponent():
         
         return nearest_cells
     
-    def minmax(self, board, depth, max_depth, last_move_row, last_move_col, maxi):
+    def minmax(self, board, depth, max_depth, last_move_row, last_move_col, maxi, alpha, beta):
         """ First it checks possible win or draw. If human player has won it returns -1, if AI has won it returns 1 or if all the cells are full 
         and there is no win it returns 0 or if the maximum depth(how far we check the moves forward) has exceeded)
         
@@ -65,20 +60,33 @@ class Opponent():
         nearest_cells = self.find_nearest_free_cells(board, last_move_row, last_move_col)
 
         if maxi:
-            max_value = 0
+            max_value = -float('inf')
             for row, col in nearest_cells:
                 board[row][col] = "O"
-                value = self.minmax(board, depth + 1, max_depth, row, col, False)
+                value = self.minmax(board, depth + 1, max_depth, row, col, False, -float("inf"), float("inf") )
                 board[row][col] = " "
-                max_value = max(max_value, value)
+
+                if value > max_value:
+                    max_value == value
+                alpha = max(alpha,max_value)
+                if beta <= alpha:
+                    break
+
             return max_value
+
         else:
-            min_value = 0
+            min_value = float('inf')
             for row, col in nearest_cells:
                 board[row][col] = "X"
-                value = self.minmax(board, depth + 1, max_depth, row, col, True)
+                value = self.minmax(board, depth + 1, max_depth, row, col, True, -float("inf"), float("inf"))
                 board[row][col] = " "
-                min_value = min(min_value, value)
+
+                if value < min_value:
+                    min_value==value
+                beta = min(beta, min_value)
+                if beta <= alpha:
+                    break
+
             return min_value
 
      
