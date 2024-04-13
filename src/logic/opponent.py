@@ -4,6 +4,7 @@ class Opponent():
 
     def ai_create_move(self, board, last_move_row, last_move_col, max_depth):
         """Chooses the best move to make in that turn. Returns the coordinates of the best move as tuple"""
+
         coordinates = self.find_nearest_free_cells(board, last_move_row, last_move_col)
         best_eval = -float('inf')
         best_move = None
@@ -14,6 +15,7 @@ class Opponent():
             board[row][col] = " "
             if evaluate > best_eval:
                 best_eval = evaluate
+                print(best_eval)
                 best_move = (row, col)
 
         return best_move
@@ -37,12 +39,16 @@ class Opponent():
         return nearest_cells
     
     def minmax(self, board, depth, max_depth, last_move_row, last_move_col, maxi, alpha, beta):
-        """ First it checks possible win or draw. If human player has won it returns -1, if AI has won it returns 1 or if all the cells are full 
-        and there is no win it returns 0 or if the maximum depth(how far we check the moves forward) has exceeded)
+        """ First it checks possible win or draw. If human player has won it returns -1, 
+        if AI has won it returns 1 or if all the cells are full 
+        and there is no win it returns 0 or if the maximum depth
+        (how far we check the moves forward) has exceeded)
         
-        It goes through the nearest_cells list which includes all the cells which are 2 cells away from the previous move. 
+        It goes through the nearest_cells list which includes all 
+        the cells which are 2 cells away from the previous move. 
         
-        If maximizing so if we are looking for the best possible move we can create, we imaginarely import move to the board and check what would happen 
+        If maximizing so if we are looking for the best possible move we can create, 
+        we imaginarely import move to the board and check what would happen 
         if we proceed with that move. It recursively calls itself to check which cell from list would be the best move. 
         If minimazing it checks which moves AI could make so the human player had less chances to win.
         
@@ -51,10 +57,10 @@ class Opponent():
         """
 
         if self.board.check_win(board, last_move_row, last_move_col, "X"):
-            return -1
-        elif self.board.check_win(board, last_move_row, last_move_col, "O"):
-            return 1
-        elif self.board.check_draw(board) or depth == max_depth:
+            return -100 + depth
+        if self.board.check_win(board, last_move_row, last_move_col, "O"):
+            return 100 - depth
+        if self.board.check_draw(board) or depth == max_depth:
             return 0
 
         nearest_cells = self.find_nearest_free_cells(board, last_move_row, last_move_col)
@@ -66,8 +72,7 @@ class Opponent():
                 value = self.minmax(board, depth + 1, max_depth, row, col, False, -float("inf"), float("inf") )
                 board[row][col] = " "
 
-                if value > max_value:
-                    max_value == value
+                max_value = max(max_value, value)
                 alpha = max(alpha,max_value)
                 if beta <= alpha:
                     break
@@ -81,8 +86,7 @@ class Opponent():
                 value = self.minmax(board, depth + 1, max_depth, row, col, True, -float("inf"), float("inf"))
                 board[row][col] = " "
 
-                if value < min_value:
-                    min_value==value
+                min_value = min(min_value, value)
                 beta = min(beta, min_value)
                 if beta <= alpha:
                     break
