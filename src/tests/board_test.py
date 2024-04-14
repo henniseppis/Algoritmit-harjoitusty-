@@ -27,13 +27,13 @@ class TestBoard(unittest.TestCase):
         board = self.board.create_board()
         self.board.next_move("X", 0, 6)
         self.board.next_move("X", 1, 5)
-        self.board.next_move("X", 2, 4)
-        self.board.next_move("=", 3, 3)
+        self.board.next_move("O", 2, 4)
+        self.board.next_move("X", 3, 3)
         self.board.next_move("X", 4, 2)
         win = self.board.check_win(board, 4,2,"X")
         self.assertEqual(win , False)
 
-    def test_win_check__horizontal(self):
+    def test_win_check_horizontal(self):
         board = self.board.create_board()
         self.board.next_move("X", 2, 10)
         self.board.next_move("X", 2, 11)
@@ -44,7 +44,7 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(win , True)
 
 
-    def test_win_check__horizontal_false(self):
+    def test_win_check_horizontal_false(self):
         board = self.board.create_board()
         self.board.next_move("X", 2, 10)
         self.board.next_move("X", 2, 11)
@@ -91,6 +91,25 @@ class TestBoard(unittest.TestCase):
         draw = self.board.check_draw(board)
         self.assertEqual(draw , False)
 
+    def test_win_check_five_symbols_row_but_not_next_to_each_other(self):
+        board = self.board.create_board()
+        self.board.next_move("X", 1, 2)
+        self.board.next_move("X", 1, 3)
+        self.board.next_move("X", 1, 5)
+        self.board.next_move("X", 1, 6)
+        self.board.next_move("X", 1, 7)
+        win = self.board.check_win(board, 1,7,"X")
+        self.assertEqual(win , False)
+    
+    def test_win_check_five_symbols_row_but_not_above_each_other(self):
+        board = self.board.create_board()
+        self.board.next_move("O", 5, 3)
+        self.board.next_move("O", 6, 3)
+        self.board.next_move("O", 7, 3)
+        self.board.next_move("O", 9, 3)
+        self.board.next_move("O", 10, 3)
+        win = self.board.check_win(board, 10,3,"O")
+        self.assertEqual(win , False)
 
 
 

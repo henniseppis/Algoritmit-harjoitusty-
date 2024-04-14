@@ -9,7 +9,7 @@ class UI:
 
     def start(self):
         """Starts the app and gives a menu for player to choose from"""
-        
+
         while True:
             print("Tervetuloa pelaamaan ristinollaa\n")
             print("1. Aloita peli")
@@ -39,7 +39,7 @@ class UI:
             if self.board.check_win(board, row, column, symbol_gamer):
                 self.game_won(symbol_gamer)
                 break
-            ai_row, ai_col = self.op.ai_create_move(board, row, column, max_depth=2)
+            ai_row, ai_col = self.op.ai_create_move(board, row, column, max_depth=5)
             board = self.board.next_move(symbol_ai, ai_row, ai_col) 
             self.print_board(board)
             if self.board.check_win(board, ai_row, ai_col, symbol_ai):

@@ -1,6 +1,7 @@
 class Opponent():
     def __init__(self, board):
         self.board = board
+        self.calculated_moves = {}
 
     def ai_create_move(self, board, last_move_row, last_move_col, max_depth):
         """Chooses the best move to make in that turn. Returns the coordinates of the best move as tuple"""
@@ -9,16 +10,11 @@ class Opponent():
         best_eval = -float('inf')
         best_move = None
 
-        for row, col in coordinates:
-            board[row][col] = "O"
-            evaluate = self.minmax(board, 0, max_depth, row, col, False, -float("inf"), float("inf"))
-            board[row][col] = " "
-            if evaluate > best_eval:
-                best_eval = evaluate
-                print(best_eval)
-                best_move = (row, col)
+        evaluate = self.minmax(board, 0, max_depth, last_move_row, last_move_col, True, -float("inf"), float("inf"))
 
-        return best_move
+        print("BEST: ", evaluate)
+
+        return evaluate[1]
 
     def find_nearest_free_cells(self, board, last_move_row, last_move_col):
         """ This functions finds the nearest free cells which are max 2 cells away in every direction from the last move made
@@ -35,7 +31,6 @@ class Opponent():
                     pass
                 else:
                     nearest_cells.append((row,col))
-        
         return nearest_cells
     
     def minmax(self, board, depth, max_depth, last_move_row, last_move_col, maxi, alpha, beta):
@@ -57,40 +52,48 @@ class Opponent():
         """
 
         if self.board.check_win(board, last_move_row, last_move_col, "X"):
-            return -100 + depth
+            return -100 + depth, (last_move_row,last_move_col)
         if self.board.check_win(board, last_move_row, last_move_col, "O"):
-            return 100 - depth
+            return 100 - depth, (last_move_row,last_move_col)
         if self.board.check_draw(board) or depth == max_depth:
-            return 0
+            return 0, (last_move_row,last_move_col)
 
         nearest_cells = self.find_nearest_free_cells(board, last_move_row, last_move_col)
+        print(nearest_cells)
 
         if maxi:
             max_value = -float('inf')
-            for row, col in nearest_cells:
-                board[row][col] = "O"
-                value = self.minmax(board, depth + 1, max_depth, row, col, False, -float("inf"), float("inf") )
-                board[row][col] = " "
+            best=None
+            for move in nearest_cells:
+                board[move[0]][move[1]] = "O"
+                value = self.minmax(board, depth + 1, max_depth, move[0], move[1], False, alpha, beta)[0]
+                board[move[0]][move[1]] = " "
 
-                max_value = max(max_value, value)
-                alpha = max(alpha,max_value)
+                if value > max_value:
+                    best=move
+                    max_value=value
+                alpha = max(alpha, max_value)
                 if beta <= alpha:
-                    break
-
-            return max_value
+                    print("PRUNEEED",depth, move, alpha, beta)
+                    return max_value, best 
+            print("LASTMAX", depth, move, alpha, beta)
+            return max_value, best 
 
         else:
             min_value = float('inf')
-            for row, col in nearest_cells:
-                board[row][col] = "X"
-                value = self.minmax(board, depth + 1, max_depth, row, col, True, -float("inf"), float("inf"))
-                board[row][col] = " "
+            best=None
+            for move in nearest_cells:
+                board[move[0]][move[1]] = "X"
+                value = self.minmax(board, depth + 1, max_depth, move[0], move[1], True, alpha, beta)[0]
+                board[move[0]][move[1]] = " "
 
-                min_value = min(min_value, value)
+                if min_value > value:
+                    best=move
+                    min_value=value
                 beta = min(beta, min_value)
                 if beta <= alpha:
-                    break
-
-            return min_value
-
+                    print("PRUNEEED",depth, move, alpha, beta)
+                    return min_value, best  
+            print("LAST", depth, move, alpha, beta)
+            return min_value, best 
      
