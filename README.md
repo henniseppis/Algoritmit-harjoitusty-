@@ -10,6 +10,8 @@
 [Viikko1](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko1.md)  
 [Viikko2](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko2.md)  
 [Viikko3](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko3.md)
+[Viikko4](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko4.md)
+
 
 #### Käynnistys:
 - Kloonaa repositorio
