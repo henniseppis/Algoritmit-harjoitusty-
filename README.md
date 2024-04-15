@@ -20,3 +20,7 @@
 
 - Käynnistä sovellus
 > invoke start
+
+- Testit
+> invoke test
+
