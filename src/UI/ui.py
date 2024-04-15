@@ -13,9 +13,18 @@ class UI:
         while True:
             print("Tervetuloa pelaamaan ristinollaa\n")
             print("1. Aloita peli")
+            print("2. Peliohjeet")
+            print("3. Lopeta")
             choice = input("Valitse ylläolevista vaihtoehdoista: ")
             if choice == "1":
                 self.start_game()
+                break
+            
+            if choice == "2":
+                self.game_rules()
+                return
+            
+            if choice == "3":
                 break
 
     def create_board(self):
@@ -88,6 +97,20 @@ class UI:
         elif symbol == "O":
             print("\n")
             print("Peli päättyi. AI vei voiton tällä kertaa")
+
+    def game_rules(self):
+        print("\n")
+        print("Pelaat merkillä X ja AI merkillä O. Pelin tarkoituksena on laittaa vuorotellen nappuloita 20x20 kokoiselle \n laudalle syöttämällä halutun ruudun koordinaatit muodossa (sarake+rivi. Esim. B7) \n Se kumpi saa ensiksi viisi omaa merkkiään peräkkäin laudalle pysty-, vaaka- tai vinoriville on voittaja. \n TSEMPPIÄ! \n")
+        print("1. OK aloitetaan")
+        print("2. Hmm en haluakkaan pelata juuri nyt")
+        choice = input("Kumpi on valintasi tänään? ")
+        if choice == "1":
+            self.start_game()
+        if choice == "2":
+            return
+
+
+
 
             
        

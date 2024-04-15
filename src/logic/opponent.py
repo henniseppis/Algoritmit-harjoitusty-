@@ -63,7 +63,6 @@ class Opponent():
             return 0, (last_move_row,last_move_col)
 
         nearest_cells = self.find_nearest_free_cells(board, last_move_row, last_move_col)
-        print(nearest_cells)
 
         if maxi:
             max_eval = -float('inf')
@@ -78,9 +77,7 @@ class Opponent():
                     max_eval=value
                 alpha = max(alpha, value)
                 if beta <= alpha:
-                    print("PRUNEEED",depth, row,col , alpha, beta)
                     break 
-            print("LASTMAX", depth, row,col, alpha, beta)
             return max_eval, best 
 
         else:
@@ -96,8 +93,6 @@ class Opponent():
                     min_eval=value
                 beta = min(beta, value)
                 if beta <= alpha:
-                    print("PRUNEEED",depth, row,col, alpha, beta)
                     break
-            print("LAST", depth, row,col , alpha, beta)
             return min_eval, best 
      
