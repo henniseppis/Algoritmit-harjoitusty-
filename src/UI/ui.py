@@ -43,15 +43,15 @@ class UI:
         board = self.create_board()
         while True:
             row, column = self.choose_next_move(board)
-            board = self.board.next_move(symbol_gamer, row, column)     
+            board, previous_moves = self.board.next_move(symbol_gamer, row, column)
             self.print_board(board)
-            if self.board.check_win(board, row, column, symbol_gamer):
+            if self.board.check_win(board, row, column) == -10000:
                 self.game_won(symbol_gamer)
                 break
-            ai_row, ai_col = self.op.ai_create_move(board, row, column, max_depth=5)
-            board = self.board.next_move(symbol_ai, ai_row, ai_col) 
+            ai_row, ai_col = self.op.ai_create_move(board, row, column, previous_moves, max_depth=5 )
+            board = self.board.next_move(symbol_ai, ai_row, ai_col)[0]
             self.print_board(board)
-            if self.board.check_win(board, ai_row, ai_col, symbol_ai):
+            if self.board.check_win(board, ai_row, ai_col) == 10000:
                 self.game_won(symbol_ai)
                 break
 

@@ -1,8 +1,8 @@
-
 class Board():
     def __init__(self, size):
         self.board_size = size
         self.board = None
+        self.previous_moves = []
 
     def create_board(self):
         """Creates the frame of the board of wanted size"""
@@ -12,16 +12,21 @@ class Board():
 
     def next_move(self, symbol, row, column):
         """Inserts the wanted move to the table"""
+        print("symbol",symbol)
         self.board[row][column] = symbol
-        return self.board
+        self.previous_moves.append((row,column))
+        return self.board, self.previous_moves
 
     def check_draw(self, board):
         """ Checks if none of the cells are free if yes game ends with draw """
         return all(cell != ' ' for row in board for cell in row)
 
-    def check_win(self, board, last_move_row, last_move_col, symbol):
+    def check_win(self, board, last_move_row, last_move_col):
         directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
         board_size = len(board)
+        symbol = board[last_move_row][last_move_col]
+        heuristic = 0
+        longest = 1
 
         for dir_row, dir_col in directions:
             count = 1
@@ -44,13 +49,20 @@ class Board():
                 else:
                     break
 
-            if count >= 5:
-                return True
-
-        return False
-
-        
-
-
-        
-        
+            if count >= 5 and symbol == "O":
+                return 10000
+            elif count >= 5 and symbol == "X":
+                return -10000
+            
+            if count >= longest:
+                longest = count
+                        
+        if longest == 4:
+            heuristic += 1000
+        if longest == 3:
+            heuristic += 50
+        if longest == 2:
+            heuristic += 10
+        if longest == 1:
+            heuristic += 1
+        return heuristic

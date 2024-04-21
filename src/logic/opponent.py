@@ -1,43 +1,49 @@
 class Opponent():
     def __init__(self, board):
         self.board = board
-        self.calculated_moves = {}
 
-    def ai_create_move(self, board, last_move_row, last_move_col, max_depth):
-        """Chooses the best move to make in that turn. Returns the coordinates of the best move as tuple"""
 
-        coordinates = self.find_nearest_free_cells(board, last_move_row, last_move_col)
+    def ai_create_move(self, board, last_move_row, last_move_col, previous_moves, max_depth):
+        self.investigated_moves = []
+        last_row, last_col = previous_moves[-1]
+        near = self.find_nearest_free_cells(board, last_row, last_col)
+
+        new_moves = [move for move in near if move not in self.investigated_moves]
+        self.investigated_moves = new_moves + self.investigated_moves
+
         best_eval = -float('inf')
         best_move = None
 
-        for row,col in coordinates:
+        for row, col in reversed(self.investigated_moves):
             board[row][col] = "O"
-            evaluate = self.minmax(board, 0, max_depth, last_move_row, last_move_col, False, -float("inf"), float("inf"))[0]
+            evaluate = self.minmax(board, 0, max_depth, row, col, True, -float("inf"), float("inf"), self.investigated_moves)[0]
             board[row][col] = " "
             if evaluate > best_eval:
                 best_eval = evaluate
-                best_move = (row,col)
+                best_move = (row, col)
 
         return best_move
-
-    def find_nearest_free_cells(self, board, last_move_row, last_move_col):
+    
+    def find_nearest_free_cells(self, board, row, col):
         """ This functions finds the ne marest free cells which are max 2 cells away in every direction from the last move made
         and adds them to the list """
 
-        smallest_col = last_move_col - 2
-        smallest_row = last_move_row - 2
-      
-        nearest_cells=[]
-        for row in range(smallest_row, smallest_row + 5):
+        smallest_col = col - 2
+        smallest_row = row - 2
+
+        nearest_cells = []
+        for row in range(smallest_row,smallest_row + 5):
             for col in range(smallest_col, smallest_col + 5):
-                if (row < 0 or row >= self.board.board_size or col < 0 or col >= self.board.board_size  or
-                          board[row][col] != " "):
+                if (row < 0 or row >= self.board.board_size or col < 0 or col >= self.board.board_size  or board[row][col] != " "):
                     pass
                 else:
                     nearest_cells.append((row,col))
+
         return nearest_cells
+
+
     
-    def minmax(self, board, depth, max_depth, last_move_row, last_move_col, maxi, alpha, beta):
+    def minmax(self, board, depth, max_depth, last_move_row, last_move_col, maxi, alpha, beta, moves):
         """ First it checks possible win or draw. If human player has won it returns -1, 
         if AI has won it returns 1 or if all the cells are full 
         and there is no win it returns 0 or if the maximum depth
@@ -55,21 +61,21 @@ class Opponent():
         
         """
 
-        if self.board.check_win(board, last_move_row, last_move_col, "X"):
-            return -100 + depth, (last_move_row,last_move_col)
-        if self.board.check_win(board, last_move_row, last_move_col, "O"):
-            return 100 - depth, (last_move_row,last_move_col)
-        if self.board.check_draw(board) or depth == max_depth:
-            return 0, (last_move_row,last_move_col)
+        if self.board.check_win(board, last_move_row, last_move_col) == -10000:
+            return -10000 + depth, None
+        if self.board.check_win(board, last_move_row, last_move_col) == 10000:
+            return 10000 - depth, None
+        if self.board.check_draw(board) or depth >= max_depth:
+            return 0, None
 
-        nearest_cells = self.find_nearest_free_cells(board, last_move_row, last_move_col)
+        heuristic_value = self.board.check_win(board, last_move_row, last_move_col)
 
         if maxi:
-            max_eval = -float('inf')
+            max_eval = -float('inf') + heuristic_value
             best=None
-            for row,col in nearest_cells:
+            for row,col in reversed(moves):
                 board[row][col] = "O"
-                value = self.minmax(board, depth + 1, max_depth, row, col, False, alpha, beta)[0]
+                value = self.minmax(board, depth + 1, max_depth, row, col, False, alpha, beta, moves)[0]
                 board[row][col] = " "
 
                 if value > max_eval:
@@ -81,11 +87,11 @@ class Opponent():
             return max_eval, best 
 
         else:
-            min_eval = float('inf')
+            min_eval = float('inf') - heuristic_value
             best=None
-            for row,col in nearest_cells:
+            for row,col in reversed(moves):
                 board[row][col] = "X"
-                value = self.minmax(board, depth + 1, max_depth, row, col, True, alpha, beta)[0]
+                value = self.minmax(board, depth + 1, max_depth, row, col, True, alpha, beta, moves)[0]
                 board[row][col] = " "
 
                 if min_eval > value:
