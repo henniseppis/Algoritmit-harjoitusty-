@@ -1,32 +1,19 @@
-class Board():
-    def __init__(self, size):
-        self.board_size = size
-        self.board = None
-        self.previous_moves = []
-
-    def create_board(self):
-        """Creates the frame of the board of wanted size"""
-
-        self.board = [[" " for _ in range(self.board_size)] for _ in range(self.board_size)]
-        return self.board
-
-    def next_move(self, symbol, row, column):
+class Board:
+    def next_move(self, board, symbol, row, column):
         """Inserts the wanted move to the table"""
-        print("symbol",symbol)
-        self.board[row][column] = symbol
-        self.previous_moves.append((row,column))
-        return self.board, self.previous_moves
+        board[row][column] = symbol
+        return board
 
     def check_draw(self, board):
         """ Checks if none of the cells are free if yes game ends with draw """
         return all(cell != ' ' for row in board for cell in row)
 
     def check_win(self, board, last_move_row, last_move_col):
+        """ Checks if there are win (vertically, horizontally and diagonally)"""
+
         directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
         board_size = len(board)
         symbol = board[last_move_row][last_move_col]
-        heuristic = 0
-        longest = 1
 
         for dir_row, dir_col in directions:
             count = 1
@@ -38,7 +25,7 @@ class Board():
                         board[check_row][check_col] == symbol):
                     count += 1
                 else:
-                    break  
+                    break
 
             for n in range(1, 5):
                 check_row = last_move_row - dir_row * n
@@ -49,20 +36,11 @@ class Board():
                 else:
                     break
 
-            if count >= 5 and symbol == "O":
-                return 10000
-            elif count >= 5 and symbol == "X":
-                return -10000
+            if count >= 5:
+                return True
             
-            if count >= longest:
-                longest = count
-                        
-        if longest == 4:
-            heuristic += 1000
-        if longest == 3:
-            heuristic += 50
-        if longest == 2:
-            heuristic += 10
-        if longest == 1:
-            heuristic += 1
-        return heuristic
+        return False
+
+
+    def heuristic_value(self, board):
+        return 0

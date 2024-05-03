@@ -1,13 +1,17 @@
 import string
+import copy
 from board.board import Board
 from logic.opponent import Opponent
 
+
 class UI:
     def __init__(self):
-        self.board = Board(size=20)
+        self.board = Board()
         self.op = Opponent(self.board)
 
     def start(self):
+        self.start_game()
+
         """Starts the app and gives a menu for player to choose from"""
 
         while True:
@@ -19,21 +23,23 @@ class UI:
             if choice == "1":
                 self.start_game()
                 break
-            
+
             if choice == "2":
                 self.game_rules()
                 return
-            
+
             if choice == "3":
                 break
 
     def create_board(self):
         """Calls function in board.py to create frame of the board of asked size """
 
-        board = self.board.create_board()
+        board = [[" " for _ in range(20)]
+                      for _ in range(20)]
+        
         self.print_board(board)
         return board
-    
+
     def start_game(self):
         """ Starts the game. Loop jumps between player making the move and AI making the move. 
         After every move there is a check for possible win.
@@ -41,43 +47,68 @@ class UI:
         symbol_gamer = "X"
         symbol_ai = "O"
         board = self.create_board()
+        cells_to_investigate = []
         while True:
             row, column = self.choose_next_move(board)
-            board, previous_moves = self.board.next_move(symbol_gamer, row, column)
+            print("row, col", row, column)
+            board = self.board.next_move(board,symbol_gamer, row, column)
+            if (row, column) in cells_to_investigate:
+                cells_to_investigate.remove((row,column))
             self.print_board(board)
-            if self.board.check_win(board, row, column) == -10000:
+            
+            nearest_moves = self.op.find_nearest_free_cells(board, row, column)
+            for move in nearest_moves:
+                if board[move[0]][move[1]] == " ":
+                    if move in cells_to_investigate:
+                        cells_to_investigate.remove(move)
+                    cells_to_investigate.append(move)
+            
+            if self.board.check_win(board, row, column):
                 self.game_won(symbol_gamer)
                 break
-            ai_row, ai_col = self.op.ai_create_move(board, row, column, previous_moves, max_depth=5 )
-            board = self.board.next_move(symbol_ai, ai_row, ai_col)[0]
+            
+            value, ai_row, ai_col = self.op.minmax(board, 0, 3, row, column, True, -1000000, 1000000, cells_to_investigate)
+            self.board.next_move(board, symbol_ai, ai_row, ai_col)
+            if (ai_row, ai_col) in cells_to_investigate:
+                cells_to_investigate.remove((ai_row,ai_col))
             self.print_board(board)
-            if self.board.check_win(board, ai_row, ai_col) == 10000:
+            
+            nearest_moves = self.op.find_nearest_free_cells(board, ai_row, ai_col)
+            for move in nearest_moves:
+                if board[move[0]][move[1]] == " ":
+                    if move in cells_to_investigate:
+                        cells_to_investigate.remove(move)
+                    cells_to_investigate.append(move)
+                    
+            if self.board.check_win(board, ai_row, ai_col):
                 self.game_won(symbol_ai)
                 break
 
     def print_board(self, board):
         """Prints the board to command line"""
 
-        alpha = "  " + "   ".join(string.ascii_uppercase[:self.board.board_size])
-        print(alpha)
+        alphabets = "  " + \
+            "   ".join(string.ascii_uppercase[:20])
+        print(alphabets)
 
         for i, row in enumerate(board):
             print(f"{i+1}", end=" ")
             print(" | ".join(row))
             print(" " * 3 + "-" * (4 * len(board)))
-    
+
     def choose_next_move(self, board):
-        
         """ Asks the next wanted move from the player. Divides it into right sections; 
         column and row which are returned and imported to the create_move function 
         which is run everytime after this function.
         """
-        
+
         while True:
             try:
-                position = input("Valitse seuraava siirtosi (esim. C5 or F15): ").strip().upper()
+                position = input(
+                    "Valitse seuraava siirtosi (esim. C5 or F15): ").strip().upper()
                 if len(position) < 2:
-                    raise ValueError("Virhe. Syötäthän siirtosi esim. C5 or F15 ")
+                    raise ValueError(
+                        "Virhe. Syötäthän siirtosi esim. C5 or F15 ")
                 column = string.ascii_uppercase.index(position[0])
                 row = int(position[1:]) - 1
                 if board[row][column] == " ":
@@ -87,9 +118,9 @@ class UI:
                     continue
             except (ValueError, IndexError):
                 print("Virhe. Syötäthän siirtosi esim. C5 or F15")
-    
+
     def game_won(self, symbol):
-        """ Announce the winner after the game """
+        """ Announces the winner after the game """
 
         if symbol == "X":
             print("\n")
@@ -108,14 +139,3 @@ class UI:
             self.start_game()
         if choice == "2":
             return
-
-
-
-
-            
-       
-
-
-
-
-            

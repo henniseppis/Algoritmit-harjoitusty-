@@ -1,29 +1,9 @@
+import copy 
+
 class Opponent():
     def __init__(self, board):
         self.board = board
 
-
-    def ai_create_move(self, board, last_move_row, last_move_col, previous_moves, max_depth):
-        self.investigated_moves = []
-        last_row, last_col = previous_moves[-1]
-        near = self.find_nearest_free_cells(board, last_row, last_col)
-
-        new_moves = [move for move in near if move not in self.investigated_moves]
-        self.investigated_moves = new_moves + self.investigated_moves
-
-        best_eval = -float('inf')
-        best_move = None
-
-        for row, col in reversed(self.investigated_moves):
-            board[row][col] = "O"
-            evaluate = self.minmax(board, 0, max_depth, row, col, True, -float("inf"), float("inf"), self.investigated_moves)[0]
-            board[row][col] = " "
-            if evaluate > best_eval:
-                best_eval = evaluate
-                best_move = (row, col)
-
-        return best_move
-    
     def find_nearest_free_cells(self, board, row, col):
         """ This functions finds the ne marest free cells which are max 2 cells away in every direction from the last move made
         and adds them to the list """
@@ -32,73 +12,96 @@ class Opponent():
         smallest_row = row - 2
 
         nearest_cells = []
-        for row in range(smallest_row,smallest_row + 5):
-            for col in range(smallest_col, smallest_col + 5):
-                if (row < 0 or row >= self.board.board_size or col < 0 or col >= self.board.board_size  or board[row][col] != " "):
+        for r in range(smallest_row, smallest_row + 4):
+            for c in range(smallest_col, smallest_col + 4):
+                if (r < 0 or r >= 20 or c < 0 or c >= 20 or board[r][c] != " "):
                     pass
                 else:
-                    nearest_cells.append((row,col))
+                    nearest_cells.append((r, c))
 
+        #smallest_col -= 1
+        #smallest_row -= 1
+#
+        #for row1 in range(smallest_row, smallest_row + 4):
+        #    for col2 in range(smallest_col, smallest_col + 4):
+        #        if (row1 < 0 or row1 >= 20 or col2 < 0 or col2 >= 20 or board[row1][col2] != " "):
+        #            pass
+        #        else:
+        #            if (row1, col2) not in nearest_cells:
+        #                nearest_cells.append((row1, col2))
+#
         return nearest_cells
 
-
-    
-    def minmax(self, board, depth, max_depth, last_move_row, last_move_col, maxi, alpha, beta, moves):
+    def minmax(self, board, depth, max_depth, last_row, last_col, maxi, alpha, beta, cells_to_investigate):
         """ First it checks possible win or draw. If human player has won it returns -1, 
         if AI has won it returns 1 or if all the cells are full 
         and there is no win it returns 0 or if the maximum depth
         (how far we check the moves forward) has exceeded)
-        
+
         It goes through the nearest_cells list which includes all 
         the cells which are 2 cells away from the previous move. 
-        
+
         If maximizing so if we are looking for the best possible move we can create, 
         we imaginarely import move to the board and check what would happen 
         if we proceed with that move. It recursively calls itself to check which cell from list would be the best move. 
         If minimazing it checks which moves AI could make so the human player had less chances to win.
-        
-        TODO:: TARKASTELEE KOKO TILANNETTA EIKÄ KESKITY VAIN VIIMEISIMMÄN SIIRRON LÄHEISYYTEEN
-        
+
         """
+                 
+        if self.board.check_win(board, last_row, last_col):
+            if maxi:
+                return -100000 + depth, last_row, last_col
+            return 100000 - depth, last_row, last_col
 
-        if self.board.check_win(board, last_move_row, last_move_col) == -10000:
-            return -10000 + depth, None
-        if self.board.check_win(board, last_move_row, last_move_col) == 10000:
-            return 10000 - depth, None
-        if self.board.check_draw(board) or depth >= max_depth:
-            return 0, None
-
-        heuristic_value = self.board.check_win(board, last_move_row, last_move_col)
-
+        if self.board.check_draw(board):
+            return 0, None, None
+        
+        if depth == max_depth:
+            return self.board.heuristic_value(board), None, None
+                
         if maxi:
-            max_eval = -float('inf') + heuristic_value
-            best=None
-            for row,col in reversed(moves):
+            max_value = -1000000
+            best = None
+            for i in range(len(cells_to_investigate)-1,-1,-1):
+                row, col = cells_to_investigate[i]
+                cells_to_investigate_copy = copy.copy(cells_to_investigate)
+                nearest_cells = self.find_nearest_free_cells(board, row, col)
+                for move in nearest_cells:
+                    if board[move[0]][move[1]] == " ":
+                        if move in cells_to_investigate_copy:
+                            cells_to_investigate_copy.remove(move)
+                        cells_to_investigate_copy.append(move)
                 board[row][col] = "O"
-                value = self.minmax(board, depth + 1, max_depth, row, col, False, alpha, beta, moves)[0]
+                value = self.minmax(board, depth + 1, max_depth,row,col, False, alpha, beta, cells_to_investigate_copy)[0]
                 board[row][col] = " "
-
-                if value > max_eval:
-                    best= (row,col)
-                    max_eval=value
-                alpha = max(alpha, value)
-                if beta <= alpha:
-                    break 
-            return max_eval, best 
-
-        else:
-            min_eval = float('inf') - heuristic_value
-            best=None
-            for row,col in reversed(moves):
-                board[row][col] = "X"
-                value = self.minmax(board, depth + 1, max_depth, row, col, True, alpha, beta, moves)[0]
-                board[row][col] = " "
-
-                if min_eval > value:
-                    best= (row,col)
-                    min_eval=value
-                beta = min(beta, value)
+                if value > max_value:
+                    best = (row,col)
+                    max_value = value
+                    alpha = value
                 if beta <= alpha:
                     break
-            return min_eval, best 
-     
+                
+            return max_value, best[0], best[1]
+
+        else:
+            min_value = 1000000
+            best = None
+            for i in range(len(cells_to_investigate)-1,-1,-1):
+                row, col = cells_to_investigate[i]
+                cells_to_investigate_copy = copy.copy(cells_to_investigate)
+                nearest_cells = self.find_nearest_free_cells(board, row, col)
+                for move in nearest_cells:
+                    if board[move[0]][move[1]] == " ":
+                        if move in cells_to_investigate_copy:
+                            cells_to_investigate_copy.remove(move)
+                        cells_to_investigate_copy.append(move)
+                board[row][col] = "X"
+                value = self.minmax(board, depth + 1, max_depth, row, col, True, alpha, beta, cells_to_investigate_copy)[0]
+                board[row][col] = " "
+                if value < min_value:
+                    best = (row,col)
+                    min_value = value
+                    beta = value
+                if beta <= alpha:
+                    break
+            return min_value, best[0], best[1]
