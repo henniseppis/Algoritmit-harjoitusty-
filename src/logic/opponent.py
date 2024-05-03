@@ -8,28 +8,28 @@ class Opponent():
         """ This functions finds the ne marest free cells which are max 2 cells away in every direction from the last move made
         and adds them to the list """
 
-        smallest_col = col - 2
-        smallest_row = row - 2
+        smallest_col = col - 1
+        smallest_row = row - 1
 
         nearest_cells = []
-        for r in range(smallest_row, smallest_row + 4):
+        for r in range(smallest_row, smallest_row + 3):
             for c in range(smallest_col, smallest_col + 4):
                 if (r < 0 or r >= 20 or c < 0 or c >= 20 or board[r][c] != " "):
                     pass
                 else:
                     nearest_cells.append((r, c))
 
-        #smallest_col -= 1
-        #smallest_row -= 1
-#
-        #for row1 in range(smallest_row, smallest_row + 4):
-        #    for col2 in range(smallest_col, smallest_col + 4):
-        #        if (row1 < 0 or row1 >= 20 or col2 < 0 or col2 >= 20 or board[row1][col2] != " "):
-        #            pass
-        #        else:
-        #            if (row1, col2) not in nearest_cells:
-        #                nearest_cells.append((row1, col2))
-#
+        smallest_col -= 1
+        smallest_row -= 1
+
+        for r in range(smallest_row, smallest_row + 4):
+            for c in range(smallest_col, smallest_col + 4):
+                if (r < 0 or r >= 20 or c < 0 or c >= 20 or board[r][c] != " "):
+                    pass
+                else:
+                    if (r, c) not in nearest_cells:
+                        nearest_cells.append((r, c))
+
         return nearest_cells
 
     def minmax(self, board, depth, max_depth, last_row, last_col, maxi, alpha, beta, cells_to_investigate):
