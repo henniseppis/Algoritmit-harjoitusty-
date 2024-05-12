@@ -10,8 +10,6 @@ class UI:
         self.op = Opponent(self.board)
 
     def start(self):
-        self.start_game()
-
         """Starts the app and gives a menu for player to choose from"""
 
         while True:
@@ -41,8 +39,9 @@ class UI:
         return board
 
     def start_game(self):
-        """ Starts the game. Loop jumps between player making the move and AI making the move. 
-        After every move there is a check for possible win.
+        """ Loop jumps between player making the move and AI making the move. 
+        After every move there is a check for possible win. After making new move its closest cells are added to the cells_to_investigate list. 
+        if list already contains a move we are trying to add, we first remove it and then add it to the end of the list due to the list is iterated backwards in minmax and we need to priorize moves which are closest the latest made move
         """
         symbol_gamer = "X"
         symbol_ai = "O"
@@ -50,7 +49,6 @@ class UI:
         cells_to_investigate = []
         while True:
             row, column = self.choose_next_move(board)
-            print("row, col", row, column)
             board = self.board.next_move(board,symbol_gamer, row, column)
             if (row, column) in cells_to_investigate:
                 cells_to_investigate.remove((row,column))
@@ -58,16 +56,15 @@ class UI:
             
             nearest_moves = self.op.find_nearest_free_cells(board, row, column)
             for move in nearest_moves:
-                if board[move[0]][move[1]] == " ":
-                    if move in cells_to_investigate:
-                        cells_to_investigate.remove(move)
-                    cells_to_investigate.append(move)
+                if move in cells_to_investigate:
+                    cells_to_investigate.remove(move)
+                cells_to_investigate.append(move)
             
             if self.board.check_win(board, row, column):
                 self.game_won(symbol_gamer)
                 break
             
-            value, ai_row, ai_col = self.op.minmax(board, 0, 3, row, column, True, -1000000, 1000000, cells_to_investigate)
+            value, ai_row, ai_col = self.op.minmax(board, 0, 3, row, column, True, float("-inf"), float("inf"), cells_to_investigate)
             self.board.next_move(board, symbol_ai, ai_row, ai_col)
             if (ai_row, ai_col) in cells_to_investigate:
                 cells_to_investigate.remove((ai_row,ai_col))
@@ -75,10 +72,9 @@ class UI:
             
             nearest_moves = self.op.find_nearest_free_cells(board, ai_row, ai_col)
             for move in nearest_moves:
-                if board[move[0]][move[1]] == " ":
-                    if move in cells_to_investigate:
-                        cells_to_investigate.remove(move)
-                    cells_to_investigate.append(move)
+                if move in cells_to_investigate:
+                    cells_to_investigate.remove(move)
+                cells_to_investigate.append(move)
                     
             if self.board.check_win(board, ai_row, ai_col):
                 self.game_won(symbol_ai)
@@ -87,14 +83,14 @@ class UI:
     def print_board(self, board):
         """Prints the board to command line"""
 
-        alphabets = "  " + \
+        alphabets = "   " + \
             "   ".join(string.ascii_uppercase[:20])
         print(alphabets)
 
         for i, row in enumerate(board):
-            print(f"{i+1}", end=" ")
+            print(f"{str(i+1).rjust(2)}", end=" ")
             print(" | ".join(row))
-            print(" " * 3 + "-" * (4 * len(board)))
+            print(" " * 3 + "-" * (4 * (len(board))-2))
 
     def choose_next_move(self, board):
         """ Asks the next wanted move from the player. Divides it into right sections; 
@@ -104,13 +100,13 @@ class UI:
 
         while True:
             try:
-                position = input(
+                choice = input(
                     "Valitse seuraava siirtosi (esim. C5 or F15): ").strip().upper()
-                if len(position) < 2:
+                if len(choice) < 2:
                     raise ValueError(
                         "Virhe. Syötäthän siirtosi esim. C5 or F15 ")
-                column = string.ascii_uppercase.index(position[0])
-                row = int(position[1:]) - 1
+                column = string.ascii_uppercase.index(choice[0])
+                row = int(choice[1:]) - 1
                 if board[row][column] == " ":
                     return row, column
                 else:
