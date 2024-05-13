@@ -1,5 +1,7 @@
 # Helsingin yliopiston tietojenkäsittelytieteen aineopintojen harjoitustyö: Algoritmit ja tekoäly
 
+## Ristinolla - peli
+
 ![workflow_badge](https://github.com/henniseppis/algoritmit-harjoitustyo/actions/workflows/main.yml/badge.svg)
 [![codecov](https://codecov.io/gh/henniseppis/algoritmit-harjoitustyo/graph/badge.svg?token=I9G1WW0NU1)](https://codecov.io/gh/henniseppis/algoritmit-harjoitustyo)  
 
@@ -12,9 +14,11 @@
 [Viikko3](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko3.md)  
 [Viikko4](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko4.md)  
 [Viikko5](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko5.md)  
+[Viikko6](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko6.md)    
+[Viikko7](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko7.md)  
 
 
-FYI. Tällä hetkellä algoritmi osaa paremmin estää minun voiton (välillä) kuin etsiä omaa voittoaan. 
+
 
 #### Käynnistys:
 - Kloonaa repositorio
@@ -25,5 +29,10 @@ FYI. Tällä hetkellä algoritmi osaa paremmin estää minun voiton (välillä) 
 > invoke start
 
 - Testit
+
+virtuaaliympäristö
+> poetry shell
+
+testien ajo
 > invoke test
 
