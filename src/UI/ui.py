@@ -1,7 +1,7 @@
 import string
 import copy
 from board.board import Board
-from logic.opponent import Opponent
+from ai.opponent import Opponent
 
 
 class UI:
@@ -120,10 +120,8 @@ class UI:
 
         if symbol == "X":
             print("\n")
-            print("Peli päättyi. Onnea voitit pelin!")
-        elif symbol == "O":
-            print("\n")
-            print("Peli päättyi. AI vei voiton tällä kertaa")
+            return "Peli päättyi. Onnea voitit pelin!"
+        return "Peli päättyi. AI vei voiton tällä kertaa"
 
     def game_rules(self):
         print("\n")

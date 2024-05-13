@@ -30,7 +30,6 @@ class Opponent():
                 else:
                     if (row, col) not in nearest_cells:
                         nearest_cells.append((row, col))
-
         return nearest_cells
 
     def minmax(self, board, depth, max_depth, last_row, last_col, maxi, alpha, beta, cells_to_investigate):
