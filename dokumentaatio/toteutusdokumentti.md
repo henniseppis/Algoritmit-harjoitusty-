@@ -30,3 +30,9 @@ Käytin työssäni chatGPT:tä alla oleviin asioihin:
 
 ### Aikavaativuudet
 Aikavaativuus on O(b^m), jossa b on mahdollisten siirtojen määrä ja m puun syvyys.
+
+
+### Lähteet
+https://en.wikipedia.org/wiki/Minimax#Minimax_algorithm_with_alternate_moves
+https://jyx.jyu.fi/bitstream/handle/123456789/58204/1/URN%3ANBN%3Afi%3Ajyu-201805292875.pdf
++ muutamia muita nettisivuja, jotka valitettavasti unohdin ottaa ylös.
