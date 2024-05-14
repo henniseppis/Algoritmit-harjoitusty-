@@ -43,7 +43,7 @@ Alla tapauksia, jotka väkisinkin tulee testattua peliä kokeiltaessa. Osaan nä
 
 ## Testien ajaminen
 
-voit ajaa testit virtuaaliympäristöss komennolla 
+voit ajaa testit virtuaaliympäristössä komennolla 
 ```bash
 invoke test
 ```
