@@ -45,6 +45,7 @@ class Board:
     
     def heuristic_value(self, board, symbol):
         """ Evaluates the game states. It calls functions to count the score for horizontal, vertical and diagonal"""
+        
         board_size = len(board)
         score = 0  
 
@@ -65,6 +66,7 @@ class Board:
 
     def check_horizontal(self, row, symbol):
         """Used to count game score horizontally. It checks symbols row by row"""
+        
         line_score = 0
         count = 0
         for i in range(len(row)):
@@ -80,6 +82,7 @@ class Board:
     
     def check_vertical(self, column, symbol):
         """ Used to count game score vertically. It checks symbols column by column (up to down)"""
+        
         line_score = 0
         count = 0
         for i in range(len(column)):
@@ -90,11 +93,13 @@ class Board:
                 count = 0
             else:
                 count = 0
+                
         line_score += count * count
         return line_score
     
     def check_diagonal(self, board, symbol):
         """ Checks score on diagonal sides. The first diagonal's direction is top left to bottom right and the second is top right to bottom left"""
+        
         board_size = len(board)
         diagonal_score = 0
         

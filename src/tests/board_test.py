@@ -7,6 +7,7 @@ class TestBoard(unittest.TestCase):
     def setUp(self):
         self.board = Board()
         self.ui = UI()
+        self.create_board = self.ui.create_board()
 
     def test_next_move(self):
         board = self.ui.create_board()
@@ -118,3 +119,35 @@ class TestBoard(unittest.TestCase):
         self.board.next_move(board, "O", 10, 8)
         win = self.board.check_win(board, 10, 8)
         self.assertEqual(win, False)
+
+    
+    def test_check_horizontal(self):
+        self.create_board[2][3] = "X"
+        self.create_board[2][10] = "X"
+        self.create_board[2][15] = "O"
+        value = self.board.check_horizontal(self.create_board[2], "X")
+        self.assertEqual(value, 2)
+    
+    def test_check_horizontal_four_in_row(self):
+        self.create_board[2][3] = "X"
+        self.create_board[2][4] = "X"
+        self.create_board[2][5] = "X"
+        self.create_board[2][6] = "X"
+        self.create_board[2][15] = "O"
+        value = self.board.check_horizontal(self.create_board[2], "X")
+        self.assertEqual(value, 16)
+    
+    def test_check_vertical(self):
+        self.create_board[7][3] = "O"
+        self.create_board[8][3] = "X"
+        self.create_board[9][3] = "X"
+        value = self.board.check_vertical([self.create_board[j][3] for j in range(20)], "X")
+        self.assertEqual(value, 4)
+    
+    def test_check_diagonal(self):
+        self.create_board[7][4] = "O"
+        self.create_board[8][5] = "X"
+        self.create_board[9][6] = "X"
+        self.create_board[10][7] = "X"
+        value = self.board.check_diagonal(self.create_board, "X")
+        self.assertEqual(value, 12)

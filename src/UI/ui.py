@@ -53,7 +53,7 @@ class UI:
             if (row, column) in cells_to_investigate:
                 cells_to_investigate.remove((row,column))
             self.print_board(board)
-            
+          
             nearest_moves = self.op.find_nearest_free_cells(board, row, column)
             for move in nearest_moves:
                 if move in cells_to_investigate:
@@ -61,7 +61,7 @@ class UI:
                 cells_to_investigate.append(move)
             
             if self.board.check_win(board, row, column):
-                self.game_won(symbol_gamer)
+                print(self.game_won(symbol_gamer))
                 break
             
             value, ai_row, ai_col = self.op.minmax(board, 0, 3, row, column, True, float("-inf"), float("inf"), cells_to_investigate)
@@ -69,6 +69,7 @@ class UI:
             if (ai_row, ai_col) in cells_to_investigate:
                 cells_to_investigate.remove((ai_row,ai_col))
             self.print_board(board)
+            print(self.print_last_move(ai_row, ai_col, row , column))
             
             nearest_moves = self.op.find_nearest_free_cells(board, ai_row, ai_col)
             for move in nearest_moves:
@@ -77,7 +78,7 @@ class UI:
                 cells_to_investigate.append(move)
                     
             if self.board.check_win(board, ai_row, ai_col):
-                self.game_won(symbol_ai)
+                print(self.game_won(symbol_ai))
                 break
 
     def print_board(self, board):
@@ -101,7 +102,7 @@ class UI:
         while True:
             try:
                 choice = input(
-                    "Valitse seuraava siirtosi (esim. C5 or F15): ").strip().upper()
+                    "Valitse seuraava siirtosi (esim. C5 or F15)").strip().upper()
                 if len(choice) < 2:
                     raise ValueError(
                         "Virhe. Syötäthän siirtosi esim. C5 or F15 ")
@@ -124,6 +125,8 @@ class UI:
         return "Peli päättyi. AI vei voiton tällä kertaa"
 
     def game_rules(self):
+        """Prints the game tules to command line"""
+        
         print("\n")
         print("Pelaat merkillä X ja AI merkillä O. Pelin tarkoituksena on laittaa vuorotellen nappuloita 20x20 kokoiselle \n laudalle syöttämällä halutun ruudun koordinaatit muodossa (sarake+rivi. Esim. B7) \n Se kumpi saa ensiksi viisi omaa merkkiään peräkkäin laudalle pysty-, vaaka- tai vinoriville on voittaja. \n TSEMPPIÄ! \n")
         print("1. OK aloitetaan")
@@ -133,3 +136,10 @@ class UI:
             self.start_game()
         if choice == "2":
             return
+    
+    def print_last_move(self, ai_row, ai_col, player_row, player_col):
+        ai_col = string.ascii_uppercase[ai_col]
+        ai_row = ai_row + 1
+        player_col = string.ascii_uppercase[player_col]
+        player_row = player_row + 1
+        return f"Tietokoneen edellinen siirto oli {ai_col}{ai_row}\nSinun edellinen siirtosi oli {player_col}{player_row}\n"
