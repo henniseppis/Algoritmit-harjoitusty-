@@ -8,6 +8,8 @@
 #### Dokumentit
 [Määrittelydokumentti](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/maarittelydokumentti.md)  
 [Testausdokumentti](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/testausdokumentti.md)  
+[Toteutusdokumentti](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/toteutusdokumentti.md)  
+
 
 
 #### Viikkoraportit
