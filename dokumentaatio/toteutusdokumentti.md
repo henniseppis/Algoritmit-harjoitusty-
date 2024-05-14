@@ -4,6 +4,9 @@
 
 Tässä ristinolla pelissä pelaa vastakkain tietokone ja ihminen (sinä). Tietokone käyttää minmax algoritmia alpha-beta karsinnalla testatakseen sekä valitakseen parhaimman seuraavan siiroon. Valinnassa auttaa myös pelilaudan heuristisen arvon määrittely, joka tehdään jokaisella kierroksella. Minmax algoritmin tarkoituksena on minimoida vastustajan voittomahdollisuudet ja maximoida omat. Aplha-beta karsinnalla taas tehostetaan algoritmin toimintaa, sillä jättää tutkimatta solmut, jotka ovat varmasti huonompia kuin tämän hetkinen paras arvo.
 
+Peli pelataan komentoriviltä. Vuorotellen laitetaan omia pelinappuloita laudalle. Se kumpi saa ensiksi 5 peräkkäin voittaa.
+
+
 ### Puutteet parannusehdotukset
 
 Algoritmini menee tällä hetkellä vain syvyyteen 3. Lähtisin ihan ensimmäiseksi parantamaan algoritmia, jotta syvyydeksi saisi vähintään 5.
@@ -23,3 +26,7 @@ Käytin työssäni chatGPT:tä alla oleviin asioihin:
 - Koodin refektorointi 
   - Check_draw metodin (tarkastaa onko peli päättynyt tasapeliin = kaikki  otin suoraan chatGPT:n mallin mukaan sen jälkeen kun pyysin sitä refektoroimaan omaani, joka oli aika paljon pidempi sokkelo koodi.
   - Samoin kysyin apua refektoroimaan koodia check_diagonal metodissa (osa pelitilanteen heurisitisen arvon määrittelyä)
+
+
+### Aikavaativuudet
+Aikavaativuus on O(b^m), jossa b on mahdollisten siirtojen määrä ja m puun syvyys.
