@@ -9,6 +9,8 @@
 [Määrittelydokumentti](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/maarittelydokumentti.md)  
 [Testausdokumentti](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/testausdokumentti.md)  
 [Toteutusdokumentti](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/toteutusdokumentti.md)  
+[Käyttöohje](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/k%C3%A4ytt%C3%B6ohje.md)
+
 
 
 
