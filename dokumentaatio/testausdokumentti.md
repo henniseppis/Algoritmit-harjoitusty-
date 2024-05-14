@@ -43,6 +43,12 @@ Alla tapauksia, jotka väkisinkin tulee testattua peliä kokeiltaessa. Osaan nä
 
 ## Testien ajaminen
 
-voit ajaa testit virtuaaliympäristöss komennolla ```invoke test```
+voit ajaa testit virtuaaliympäristöss komennolla 
+```bash
+invoke test
+```
 
-virtuaaliympäristöön pääset komennolla ```poetry shell```
+virtuaaliympäristöön pääset komennolla 
+````bash
+poetry shell
+
