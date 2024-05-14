@@ -1,7 +1,9 @@
 import copy 
+from board.board import Board
 
 class Opponent():
     def __init__(self, board):
+        self.board_class = Board()
         self.board = board
 
     def find_nearest_free_cells(self, board, row, col):
@@ -11,7 +13,6 @@ class Opponent():
         smallest_col = col - 2
         smallest_row = row - 2
         
-
         nearest_cells = []
         for row in range(smallest_row, smallest_row + 4):
             for col in range(smallest_col, smallest_col + 4):
@@ -44,20 +45,20 @@ class Opponent():
 
         """
                  
-        if self.board.check_win(board, last_row, last_col):
+        if self.board_class.check_win(board, last_row, last_col):
             if maxi:
                 return (float("-inf"), last_row, last_col)
             return (float("inf"), last_row, last_col)
 
-        if self.board.check_draw(board):
+        if self.board_class.check_draw(board):
             return 0, None, None
         
         if depth == max_depth:
             if maxi:
-                heuristic_value = self.board.heuristic_value(board, "O")
+                heuristic_value = self.board_class.heuristic_value(board, "O")
                 return (heuristic_value, None, None)
             else:
-                heuristic_value = self.board.heuristic_value(board, "X")
+                heuristic_value = self.board_class.heuristic_value(board, "X")
                 return (-heuristic_value, None, None)
                 
                         

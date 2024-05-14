@@ -102,7 +102,7 @@ class UI:
         while True:
             try:
                 choice = input(
-                    "Valitse seuraava siirtosi (esim. C5 or F15)").strip().upper()
+                    "Valitse seuraava siirtosi (esim. C5 or F15): ").strip().upper()
                 if len(choice) < 2:
                     raise ValueError(
                         "Virhe. Syötäthän siirtosi esim. C5 or F15 ")
