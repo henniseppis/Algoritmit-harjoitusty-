@@ -38,3 +38,5 @@ Minimax on päätöspuualgoritmi, jota käytetään esimerkiksi pelien luonnissa
 #### Lähteet
 https://en.wikipedia.org/wiki/Minimax#Minimax_algorithm_with_alternate_moves
 https://jyx.jyu.fi/bitstream/handle/123456789/58204/1/URN%3ANBN%3Afi%3Ajyu-201805292875.pdf
+https://www.neverstopbuilding.com/blog/minimax
+https://www.geeksforgeeks.org/finding-optimal-move-in-tic-tac-toe-using-minimax-algorithm-in-game-theory/
