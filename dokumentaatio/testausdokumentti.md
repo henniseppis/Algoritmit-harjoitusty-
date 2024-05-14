@@ -1,6 +1,8 @@
 # Testausdokumentti
 
-Tein projektiini yksikkötestejä UnitTestien avulla. Yksikkötesteillä testataan yksittäisten metodien toimintaa ja myös reaktiota vääränlaisiin syötteisiin.
+Tein projektiini yksikkötestejä UnitTestien avulla. Yksikkötesteillä testataan yksittäisten metodien toimintaa ja myös reaktiota vääränlaisiin syötteisiin. Testikattavuus voisi ja pitäisikin olla korkeampi kuin minulla tällä hetkellä.
+
+![image](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/Screenshot%20from%202024-05-14%2020-27-15.png)
 
 ##### Mitä yksikkötesteillä testataan:
 
