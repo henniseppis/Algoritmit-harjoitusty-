@@ -25,16 +25,16 @@
 #### Käynnistys:
 - Kloonaa repositorio
 - Asenna riippuvuudet  
-> poetry install
+> ```poetry install```
 
 - Käynnistä sovellus
-> invoke start
+> ```invoke start```
 
 - Testit
 
 virtuaaliympäristö
-> poetry shell
+> ```poetry shell```
 
 testien ajo
-> invoke test
+> ```invoke test```
 
