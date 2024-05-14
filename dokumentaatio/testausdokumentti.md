@@ -4,7 +4,7 @@ Tein projektiini yksikkötestejä UnitTestien avulla. Yksikkötesteillä testata
 
 
 ## Käyttöliittymätestaus
-Alla testitapauksia, joilla olen manuaalisesti testannut projektia
+Alla testitapauksia, joilla olen manuaalisesti testannut projektia. Osaan näistä on myös yksikkötestit
 
 1. Pelaaja syöttää halutun liikkeen väärin  
     - Liian lyhyt käsky
