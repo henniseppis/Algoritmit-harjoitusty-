@@ -11,21 +11,6 @@
 [Toteutusdokumentti](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/toteutusdokumentti.md)  
 [Käyttöohje](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/k%C3%A4ytt%C3%B6ohje.md)
 
-
-
-
-#### Viikkoraportit
-[Viikko1](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko1.md)  
-[Viikko2](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko2.md)  
-[Viikko3](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko3.md)  
-[Viikko4](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko4.md)  
-[Viikko5](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko5.md)  
-[Viikko6](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko6.md)    
-[Viikko7](https://github.com/henniseppis/algoritmit-harjoitustyo/blob/main/dokumentaatio/viikkoraportit/viikko7.md)  
-
-
-
-
 #### Käynnistys:
 - Kloonaa repositorio
 - Asenna riippuvuudet  
